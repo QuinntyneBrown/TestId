@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
-namespace TestId.Services;
+namespace TestId.Cli.Services;
 
 public class GitCloneService
 {

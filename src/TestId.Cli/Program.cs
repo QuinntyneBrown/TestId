@@ -2,11 +2,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.CommandLine;
-using TestId.Commands;
-using TestId.Options;
-using TestId.Services;
+using TestId.Cli.Commands;
+using TestId.Cli.Options;
+using TestId.Cli.Services;
 
-namespace TestId;
+namespace TestId.Cli;
 
 class Program
 {
@@ -36,6 +36,7 @@ class Program
         // Register services
         services.AddSingleton<GitCloneService>();
         services.AddSingleton<PythonScriptService>();
+        services.AddSingleton<ClipboardService>();
         services.AddSingleton<GenerateCommand>();
 
         var serviceProvider = services.BuildServiceProvider();

@@ -1,4 +1,4 @@
-namespace TestId.Options;
+namespace TestId.Cli.Options;
 
 public class TestIdOptions
 {

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
-namespace TestId.Services;
+namespace TestId.Cli.Services;
 
 public class PythonScriptService
 {
@@ -12,21 +12,21 @@ public class PythonScriptService
         _logger = logger;
     }
 
-    public async Task<string> ExecuteScriptAsync(string repositoryPath, string scriptPath, CancellationToken cancellationToken = default)
+    public async Task<string> ExecuteScriptAsync(string repositoryPath, string scriptPath, string kind, CancellationToken cancellationToken = default)
     {
         var fullScriptPath = Path.Combine(repositoryPath, scriptPath);
-        
+
         if (!File.Exists(fullScriptPath))
         {
             throw new FileNotFoundException($"Python script not found at {fullScriptPath}");
         }
 
-        _logger.LogInformation("Executing Python script: {ScriptPath}", fullScriptPath);
+        _logger.LogInformation("Executing Python script: {ScriptPath} with kind {Kind}", fullScriptPath, kind);
 
         var startInfo = new ProcessStartInfo
         {
             FileName = "python3",
-            Arguments = $"\"{fullScriptPath}\"",
+            Arguments = $"\"{fullScriptPath}\" -kind {kind}",
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
