@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -12,9 +13,10 @@ class Program
 {
     static async Task<int> Main(string[] args)
     {
-        // Build configuration
+        // Build configuration from the assembly's directory so it works when installed as a global tool
+        var assemblyDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
         var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
+            .SetBasePath(assemblyDir)
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
             .Build();
 
